@@ -26,6 +26,12 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
+                <a class="navbar-brand" href="{{ url('/message/create') }}">
+                    Compose Messsage
+                </a>
+                <a class="navbar-brand" href="{{ url('/message/sent') }}">
+                    Sent Box
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -78,6 +84,13 @@
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+
+                    @endif
+
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header">Inbox</div>
@@ -88,8 +101,16 @@
                                         {{ session('status') }}
                                     </div>
                                 @endif
-
-            @yield('content')
+                                @if($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                @yield('content')
 
                             </div>
                             </div>

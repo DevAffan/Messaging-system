@@ -2,18 +2,25 @@
 
 @section('content')
 
-                    @if (count($messages) > 0)
-                        <ul class="list-group">
-                            @foreach ($messages as $message)
-                                <li class="list-group-item">
-                                    <a href="/messages/{{ $message->id }}">
-                                       <strong>From: {{$message->userFrom->name}},{{ $message->userFrom->email }}</strong> | Subject: {{ $message->message }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
+<form action="{{route('messsage.store')}}" method="post">
+    @csrf
+<div class="form-group">
+    <label for="to">To:</label>
+    <select name="to_user" id="to_user"  class="form-control">
+        @foreach ( $users as $user)
+        <option value="{{$user->id}}">{{$user->email}}</option>
+        @endforeach
+    </select>
+</div>
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject</label>
+      <input type="text" class="form-control" id="subject" name="subject">
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Message</label>
+      <input type="text" class="form-control" id="message" name="message">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
-                    @else
-                        <p>You have no messages</p>
-                    @endif
 @endsection

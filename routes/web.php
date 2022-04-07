@@ -21,3 +21,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [MessagesController::class, 'index'])->name('home');
+Route::get('/message/create', [MessagesController::class, 'create'])->name('messsage.create');
+Route::post('/message/store', [MessagesController::class, 'store'])->name('messsage.store');

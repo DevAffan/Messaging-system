@@ -17,4 +17,9 @@ class Message extends Model
     public function userTo(){
         return $this->belongsTo('App\Models\User', 'to_user_id');
     }
+
+    public function scopeNotDeleted($query)
+    {
+        return $query->where('is_deleted', false);
+    }
 }

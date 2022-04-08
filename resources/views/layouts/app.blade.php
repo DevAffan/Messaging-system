@@ -23,8 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ url('/home') }}">
+                    {{ config('app.name', 'Message System') }}
                 </a>
                 <a class="navbar-brand" href="{{ url('/create') }}">
                     Compose Messsage
@@ -115,6 +115,7 @@
                             </div>
                             </div>
                         </div>
+
                     </div>
             </div>
         </main>

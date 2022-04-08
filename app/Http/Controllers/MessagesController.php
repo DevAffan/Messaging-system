@@ -21,7 +21,7 @@ class MessagesController extends Controller
 
     public function index()
     {
-        $messages = Message::with('userFrom')->where('to_user_id', auth()->user()->id)->get();
+        $messages = Message::with('userFrom')->where('to_user_id', auth()->user()->id)->orderBy('created_at' , 'desc')->notDeleted()->get();
         // dd($messages);
         return view('home' , compact('messages'));
     }
@@ -82,30 +82,9 @@ class MessagesController extends Controller
     {
         $message = Message::with('userFrom')->find($id);
         // dd($message);
+        $message->is_read = true;
+        $message->save();
         return view('show' , compact('message'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Message $message)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Message $message)
-    {
-        //
     }
 
 
@@ -119,15 +98,14 @@ class MessagesController extends Controller
 
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Message  $message
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Message $message)
+    public function trash($id)
     {
-        //
+        $message = Message::find($id);
+        $message->is_deleted = true;
+// dd($message);
+        // $message->delete();
+        $message->save();
+        return redirect()->route('home')->with('success' , 'Message deleted successfully');
     }
 
 

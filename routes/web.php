@@ -25,3 +25,4 @@ Route::get('/create/{id?}/{subject?}', [MessagesController::class, 'create'])->n
 Route::post('/message/store', [MessagesController::class, 'store'])->name('messsage.store');
 Route::get('/message/{id}', [MessagesController::class, 'show'])->name('messsage.show');
 Route::get('/sent', [MessagesController::class, 'sent'])->name('messsage.sent');
+Route::get('/trash/{id}', [MessagesController::class, 'trash'])->name('messsage.trash');

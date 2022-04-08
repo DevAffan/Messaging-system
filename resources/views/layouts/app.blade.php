@@ -26,10 +26,10 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <a class="navbar-brand" href="{{ url('/message/create') }}">
+                <a class="navbar-brand" href="{{ url('/create') }}">
                     Compose Messsage
                 </a>
-                <a class="navbar-brand" href="{{ url('/message/sent') }}">
+                <a class="navbar-brand" href="{{ url('/sent') }}">
                     Sent Box
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

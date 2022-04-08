@@ -32,11 +32,18 @@ class MessagesController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function create(){
-        $users = User::where('id', '!=', auth()->user()->id)->get();
-        return view('create' , compact('users'));
-    }
+    public function create($id = 0 , $subject = ''){
+        if($id == 0){
+            $users = User::where('id' , '!=' , auth()->user()->id)->get();
+        }else{
+            $users = User::where('id' ,$id)->get();
+        }
 
+        if($subject !== ''){
+            $subject = 'Re: ' . $subject;
+        }
+        return view('create' , compact('users' , 'subject'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -63,5 +70,65 @@ class MessagesController extends Controller
         return redirect()->route('home')->with('success' , 'Message sent successfully');
 
 }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $message = Message::with('userFrom')->find($id);
+        // dd($message);
+        return view('show' , compact('message'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Message $message)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Message $message)
+    {
+        //
+    }
+
+
+
+    public function sent(){
+        $messages = Message::with('userTo')->where('from_user_id', auth()->user()->id)->get();
+        // dd($messages);
+        return view('sent' , compact('messages'));
+    }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Message $message)
+    {
+        //
+    }
+
 
 }

@@ -46,4 +46,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Message' , 'from_user_id');
     }
+
+    public function userTo(){
+        return $this->hasMany('App\Models\Message' , 'to_user_id');
+    }
 }
